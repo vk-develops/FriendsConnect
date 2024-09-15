@@ -37,8 +37,44 @@ export const usersAuthApiSlice = apiSlice.injectEndpoints({
                 },
             }),
         }),
+
+        showAllFriends: builder.query({
+            query: () => ({
+                url: `${USERS_AUTH_URL}/friends/show-friends`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
+
+        sendFriendRequest: builder.mutation({
+            query: ({ id }) => ({
+                url: `${USERS_AUTH_URL}/friends/send-request/${id}`,
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }),
+        }),
+
+        acceptFriendRequest: builder.mutation({
+            query: ({ id }) => ({
+                url: `${USERS_AUTH_URL}/friends/accept-request/${id}`,
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }),
+        }),
     }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation } =
-    usersAuthApiSlice;
+export const {
+    useRegisterMutation,
+    useLoginMutation,
+    useLogoutMutation,
+    useShowAllFriendsQuery,
+    useSendFriendRequestMutation,
+    useAcceptFriendRequestMutation,
+} = usersAuthApiSlice;
