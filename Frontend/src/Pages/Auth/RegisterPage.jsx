@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { styles } from "../../Styles/styles";
 import { useRegisterMutation } from "../../App/Service/usersAuthApiSlice";
@@ -12,6 +13,8 @@ const RegisterPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const [register, { isLoading }] = useRegisterMutation();
 
@@ -28,6 +31,7 @@ const RegisterPage = () => {
                 const userInfo = response.userInfo;
                 dispatch(setCredentials({ userInfo }));
                 useSuccessToast(response.message);
+                navigate("/");
             } else {
                 useErrorToast("Passwords does not match!");
             }

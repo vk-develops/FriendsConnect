@@ -5,11 +5,14 @@ import Layout from "../Components/Layout";
 import RegisterPage from "../Pages/Auth/RegisterPage";
 import LoginPage from "../Pages/Auth/LoginPage";
 import VerifyPage from "../Pages/Auth/VerifyPage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../App/Features/usersAuthSlice";
+import LoggedOutPage from "../Components/LoggedOutPage";
 
 const Router = () => {
     const dispatch = useDispatch();
+
+    const { user } = useSelector((state) => state.auth);
 
     const checkIsLoggedIn = async () => {
         try {
@@ -45,10 +48,17 @@ const Router = () => {
                 element={<Layout />}
             >
                 {/* HomePage Route */}
-                <Route
-                    index
-                    element={<HomePage />}
-                />
+                {user ? (
+                    <Route
+                        index
+                        element={<HomePage />}
+                    />
+                ) : (
+                    <Route
+                        index
+                        element={<LoggedOutPage />}
+                    />
+                )}
 
                 {/* Account Routes */}
                 <Route path="account">

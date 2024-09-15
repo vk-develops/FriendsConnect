@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { IconShoppingCart, IconChevronDown } from "@tabler/icons-react";
 import { styles } from "../Styles/styles";
 import useLogout from "../Hooks/useLogout";
 
@@ -27,33 +26,22 @@ const Header = () => {
                     />
                 </NavLink>
 
+                <div>
+                    <h1 className="font-eduoxusSans text-3xl text-primaryColor font-medium">
+                        FriendsSphere
+                    </h1>
+                </div>
+
                 {/* Cta buttons */}
                 <div className="flex items-center justify-center gap-5">
                     {user ? (
                         <>
-                            <NavLink
-                                to={`account/login`}
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? `${styles.navLink} text-primaryColor`
-                                        : `${styles.navLink} hover:text-primaryColor`
-                                }
-                            >
-                                <IconShoppingCart
-                                    stroke={1.5}
-                                    size={24}
-                                />
-                            </NavLink>
-                            <button onClick={handleLogout}>Logout</button>
-                            <NavLink
-                                to={`account/register`}
+                            <button
                                 className={`px-4 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs`}
+                                onClick={handleLogout}
                             >
-                                <div className="flex items-end justify-center gap-3">
-                                    <p>Account</p>
-                                    <IconChevronDown size={18} />
-                                </div>
-                            </NavLink>
+                                Logout
+                            </button>
                         </>
                     ) : (
                         <>
@@ -71,7 +59,7 @@ const Header = () => {
                                 to={`account/register`}
                                 className={`${styles.navButton}`}
                             >
-                                Get Started
+                                Register
                             </NavLink>
                         </>
                     )}
