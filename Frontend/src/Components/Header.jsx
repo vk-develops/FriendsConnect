@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { IconShoppingCart, IconChevronDown } from "@tabler/icons-react";
 import { styles } from "../Styles/styles";
 import useLogout from "../Hooks/useLogout";
 
