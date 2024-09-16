@@ -8,15 +8,18 @@ const showAllFriends = asyncHandler(async (req, res) => {
     try {
         const userId = req.user._id;
 
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).populate(
+            "friends",
+            "name email"
+        );
 
         if (user) {
-            const friends = await User.populate("friends", "name email");
+            const friendsList = user.friends;
 
             res.status(200).json({
                 success: true,
                 message: "Friends List Generated",
-                data: { count: friends.length, friends: friends },
+                data: { count: friendsList.length, friends: friendsList },
             });
         } else {
             res.status(400).json({

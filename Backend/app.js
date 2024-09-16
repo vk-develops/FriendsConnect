@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 
 //APP HTTP Methods
 app.use("/api/v1/users/auth/", authRoute);
-app.use("/api/v1/users/friends/", friendsRoute);
+app.use("/api/v1/users/auth/friends/", friendsRoute);
 
 //App listen
 app.listen(PORT, () => {

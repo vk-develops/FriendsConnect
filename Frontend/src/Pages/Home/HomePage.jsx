@@ -24,8 +24,8 @@ const HomePage = () => {
 
     useEffect(() => {
         if (data) {
-            console.log(data);
-            setFriends(data.data);
+            console.log(data.data);
+            setFriends(data.data.friends);
         }
 
         const delayDebounceFn = setTimeout(() => {
