@@ -30,6 +30,42 @@ const showAllFriends = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Search for users
+// @route   POST /api/v1/users/friends/search-friends
+// @access  Private
+const searchUsers = asyncHandler(async (req, res) => {
+    try {
+        const { name } = req.query;
+
+        if (!name) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide a name to search",
+            });
+        }
+
+        const users = await User.find({
+            name: { $regex: name, $options: "i" },
+        }).select("name email");
+
+        if (users.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No users found with that name",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Search done",
+            data: { users },
+        });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 // @desc    Send friend request
 // @route   POST /api/v1/users/friends/send-request
 // @access  Private
@@ -99,4 +135,4 @@ const acceptFriend = asyncHandler(async (req, res) => {
         res.status(500).json({ success: false, err: err.message });
     }
 });
-export { showAllFriends, sendRequest, acceptFriend };
+export { showAllFriends, searchUsers, sendRequest, acceptFriend };
